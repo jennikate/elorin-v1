@@ -4,24 +4,24 @@
 
 ### For DM
 
-[ ] Random encounter generator (Open5e API)
-[ ] Calendar
+- [ ] Random encounter generator (Open5e API)
+- [ ] Calendar
 
 ### User access
 
-[ ] Register/Login
+- [ ] Register/Login
 
 
 ### Character creation by users
 
-[ ] Character ERD
-[ ] Character key info form
-[ ] Character inventory
-[ ] DM question list(s)
+- [ ] Character ERD
+- [ ] Character key info form
+- [ ] Character inventory
+- [ ] DM question list(s)
 
 ### World creation
 
-[ ] Race/Subraces
-[ ] Cities/Countries
-[ ] Key historical moments
+- [ ] Race/Subraces
+- [ ] Cities/Countries
+- [ ] Key historical moments
 
