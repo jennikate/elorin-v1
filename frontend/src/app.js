@@ -1,9 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
+
+import 'bulma/css/bulma.css'
+import './styles/main.scss'
+
+import Header from './components/Header'
+import Home from './pages/Home'
+import MonsterList from './pages/MonsterList'
+import SingleMonster from './pages/SingleMonster'
+import EncounterGenerator from './pages/EncounterGenerator'
 
 const App = () => {
-  return <div>Hello world</div>
+  return (
+    <>
+      <HashRouter>
+        <Header />
+
+        <Switch>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/monsters' component={MonsterList} />
+          <Route exact path='/monsters/:slug' component={SingleMonster} />
+          <Route exact path='/encounter/generator' component={EncounterGenerator} />
+
+        </Switch>
+      </HashRouter>
+    </>
+  )
 }
 
 ReactDOM.render(

@@ -4,7 +4,10 @@
 
 ### For DM
 
-- [ ] Random encounter generator (Open5e API)
+#### Random encounter generator (Open5e API)
+- [ ] setup threshold check table in DB rather than as array
+
+#### Calendar
 - [ ] Calendar
 
 ### User access
