@@ -17,7 +17,7 @@
 
 ### Character creation by users
 
-- [ ] Character ERD
+- [x] Character ERD
 - [ ] Character key info form
 - [ ] Character inventory
 - [ ] DM question list(s)
@@ -28,3 +28,11 @@
 - [ ] Cities/Countries
 - [ ] Key historical moments
 
+----
+
+## Notes
+
+### ERD
+
+Character
+<img src='https://raw.githubusercontent.com/jennikate/elorin/master/readme_images/character-ERD.png' width='300px' />
