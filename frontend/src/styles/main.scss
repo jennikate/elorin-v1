@@ -3,8 +3,15 @@
 /* ================================== */
 
 @import url('https://fonts.googleapis.com/css?family=Cinzel:400,700,900|Open+Sans&display=swap');
+// @import url('./fonts/stylesheet.css');
+@font-face {
+  font-family: 'unzialishregular';
+  src: url('./fonts/unzialish-nrxo-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
-// $font-logo: 
+$font-logo: 'unzialishregular', sans-serif;
 $font-title: 'Cinzel', serif;
 $font: 'Open Sans', sans-serif;
 $card-font: serif;
@@ -223,4 +230,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  h1 {
+    font-family: 'unzialishregular';
+  }
 }

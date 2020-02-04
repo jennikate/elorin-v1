@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 
 import 'bulma/css/bulma.css'
+// import './styles/fonts/stylesheet.css'
 import './styles/main.scss'
 
-import Header from './components/Header'
+// import Header from './components/Header'
 import Home from './pages/Home'
 import MonsterList from './pages/MonsterList'
 import SingleMonster from './pages/SingleMonster'
