@@ -4,20 +4,25 @@
 
 @import url('https://fonts.googleapis.com/css?family=Cinzel:400,700,900|Open+Sans&display=swap');
 
+// $font-logo: 
 $font-title: 'Cinzel', serif;
 $font: 'Open Sans', sans-serif;
 $card-font: serif;
 
-$brand-highlight: #71080a;
-$brand-secondary: #e5c03a;
-$base-color: #333333;
-$base-light: #aaaaaa;
+$dnd-highlight: #71080a;
+$dnd-secondary: #e5c03a;
+$brand-black: #333333;
+$brand-white: #aaaaaa;
+$pure-black: #000000;
+$pure-white: #FFFFFF;
 $shadow: 2px 5px 10px #888888;
 
-$title-color: #71080a;
+//DND Cards
+$card-title-color: #71080a;
 $card-text-color: #71080a;
-
 $card-back: #ccb392;
+
+
 
 .hide {
   display: none;
@@ -35,6 +40,7 @@ header {
 section {
   padding: 1.5rem;
 }
+
 
 .flex-horizontal {
   display: flex;
@@ -56,15 +62,13 @@ h1 {
   font-size: 2rem;
   font-weight: 700;
   margin-right: 1rem;
-  color: $title-color;
 }
 h2 {
   font-family: $font;
   font-size: 1.25rem;
-  color: $title-color;
   text-transform: capitalize;
   font-variant: small-caps;
-  border-bottom: 1px solid $brand-highlight;
+  border-bottom: 1px solid $dnd-highlight;
   margin-top: 0.5rem;
 }
 
@@ -90,9 +94,12 @@ h2 {
   box-shadow: $shadow;
   width: 50%;
   margin: 2rem;
-  border-image: linear-gradient(to right, $brand-secondary, $brand-highlight) 1;
+  border-image: linear-gradient(to right, $dnd-secondary, $dnd-highlight) 1;
   border-width: 10px 0;
   border-style: solid;
+  h1, h2 {
+    color: $card-title-color;
+  }
 }
 
 .dnd-section, .dnd-block {
@@ -100,7 +107,7 @@ h2 {
   padding-bottom: 0.5rem;
 }
 .dnd-section {
-  border-image: linear-gradient(to right, $brand-highlight, transparent) 1;
+  border-image: linear-gradient(to right, $dnd-highlight, transparent) 1;
   border-width: 0 0 3px 0;
   border-style: solid;
 }
@@ -115,7 +122,7 @@ h2 {
 }
 
 .dnd-desc {
-  color: $base-color;
+  color: $brand-black;
 }
 .dnd-desc em {
   font-style: italic;
@@ -135,8 +142,6 @@ h2 {
 /*  FORM                              */
 /* ================================== */
 
-
-
 .counter {
   width: 40px;
   height: 40px;
@@ -152,16 +157,16 @@ p + .counter {
 
 button {
   cursor: pointer;
-  color: $brand-highlight;
+  color: $dnd-highlight;
   background-color: white;
-  border: 2px solid $brand-highlight;
+  border: 2px solid $dnd-highlight;
   border-radius: 3px;
   width: 7rem;
   height: 2rem;
   font-size: 1rem;
 }
 button:hover {
-  background-color: $brand-highlight;
+  background-color: $dnd-highlight;
   color: white;
 }
 
@@ -192,17 +197,30 @@ button:hover {
   // left: 0;
   height: 20px;
   width: 20px;
-  border: 1px solid $brand-highlight;
+  border: 1px solid $dnd-highlight;
   border-radius: 50%;
 }
 
 /* On mouse-over, add a background color */
 .radio-container:hover input ~ .checkmark {
-  background-color: $brand-highlight;
+  background-color: $dnd-highlight;
 }
 
 /* When the radio button is checked, add a background */
 .radio-container input:checked ~ .checkmark {
-  background-color:$brand-highlight;
+  background-color:$dnd-highlight;
 }
 
+
+/* ================================== */
+/*  PAGE SPECIFIC                     */
+/* ================================== */
+
+//----- HOME
+.home {
+  background-color: black;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -15,7 +15,7 @@ const App = () => {
   return (
     <>
       <HashRouter>
-        <Header />
+        {/* <Header /> */}
 
         <Switch>
           <Route exact path='/' component={Home} />
