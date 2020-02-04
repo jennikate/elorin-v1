@@ -1,20 +1,18 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import logo from '../styles/images/Elorin_Symbol.png'
 
 const Home = () => {
 
   return (
     <div className='home'>
-      <h1>
-        <span className='shine'>Elorin</span>
-      </h1>
-      {/* <div className='logo'>
-        <img src='../styles/images/Elorin_Symbol.png' />
-
-
-      </div> */}
-      {/* <Link to='/encounter/generator'>Encounter generator</Link>
+      <div className='flex-container'>
+        <h1 className='shine'>Elorin </h1>
+        <img className='logo' src={logo} />
+        {/* <Link to='/encounter/generator'>Encounter generator</Link>
       <Link to='/monsters'>Monster list sample</Link> */}
+      </div>
+
+      <p>A Dungeons &amp; Dragons Adventure</p>
     </div>
   )
 }
