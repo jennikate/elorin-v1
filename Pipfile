@@ -6,7 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
+django = "==2.2.9"
+djangorestframework = "*"
+pyjwt = "*"
+psycopg2-binary = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"
