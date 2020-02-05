@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Switch, Route } from 'react-router-dom'
 
 import 'bulma/css/bulma.css'
-// import './styles/fonts/stylesheet.css'
 import './styles/main.scss'
 
 // import Header from './components/Header'
 import Home from './pages/Home'
+import Login from './pages/Login'
 import MonsterList from './pages/MonsterList'
 import SingleMonster from './pages/SingleMonster'
 import EncounterGenerator from './pages/EncounterGenerator'
@@ -20,6 +20,7 @@ const App = () => {
 
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route exact path='/login' component={Login} />
           <Route exact path='/monsters' component={MonsterList} />
           <Route exact path='/monsters/:slug' component={SingleMonster} />
           <Route exact path='/encounter/generator' component={EncounterGenerator} />

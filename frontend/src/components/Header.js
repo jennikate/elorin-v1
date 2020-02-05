@@ -22,6 +22,11 @@ const Header = () => {
           </div>
           <div className='navbar-menu'>
             <div className='navbar-end'>
+              <Link to='/login'>Login</Link>
+            </div>
+          </div>
+          <div className='navbar-menu'>
+            <div className='navbar-end'>
               <Link to='/monsters'>Monsters</Link>
             </div>
           </div>

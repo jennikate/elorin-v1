@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from .models import Language, Species, Subspecies
 from .serializers import LanguageSerializer, SpeciesSerializer, SubspeciesSerializer
-from django.conf import settings                                                                                                                                     
+from django.conf import settings
 from django.http import HttpResponse
 
 
@@ -33,7 +33,7 @@ class LanguageListView(APIView):
             return Response(updated_language.data)
         return Response(updated_language.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
-    def delete(self, request, pk):
+    def delete(self, _request, pk):
         language = Language.objects.get(pk=pk)
         language.delete()
         return Response(status=HTTP_204_NO_CONTENT)
