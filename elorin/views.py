@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -9,6 +10,8 @@ from django.http import HttpResponse
 
 
 class LanguageListView(APIView):
+
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get(self, _request):
         languages = Language.objects.all()
@@ -29,3 +32,8 @@ class LanguageListView(APIView):
             updated_language.save()
             return Response(updated_language.data)
         return Response(updated_language.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def delete(self, request, pk):
+        language = Language.objects.get(pk=pk)
+        language.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
