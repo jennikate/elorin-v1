@@ -7,6 +7,7 @@ from .serializers import LanguageSerializer, SpeciesSerializer, SubspeciesSerial
 from django.conf import settings                                                                                                                                     
 from django.http import HttpResponse
 
+
 class LanguageListView(APIView):
 
     def get(self, _request):
@@ -20,3 +21,11 @@ class LanguageListView(APIView):
             language.save()
             return Response(language.data, status=HTTP_201_CREATED)
         return Response(language.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+
+    def put(self, request, pk):
+        language = Language.objects.get(pk=pk)
+        updated_language = LanguageSerializer(language, data=request.data)
+        if updated_language.is_valid():
+            updated_language.save()
+            return Response(updated_language.data)
+        return Response(updated_language.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
