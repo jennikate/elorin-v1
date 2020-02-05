@@ -22,7 +22,7 @@ class Species(models.Model):
 class Subspecies(models.Model):
     species = models.ForeignKey(Species, related_name='species', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    core_languages = models.ManyToManyField(Language, related_name='languages')
+    primary_language = models.ManyToManyField(Language, related_name='languages')
 
     def __str__(self):
         return f'{self.name}'
