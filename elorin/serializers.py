@@ -22,4 +22,4 @@ class SubspeciesSerializer(serializers.ModelSerializer):
     species = SpeciesSerializer()
     class Meta:
         model = Subspecies
-        fields = ('id', 'species', 'name', 'core_languages')
+        fields = ('id', 'species', 'name', 'primary_language')
