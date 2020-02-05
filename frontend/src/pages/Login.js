@@ -20,9 +20,9 @@ const Login = (props) => {
     e.preventDefault()
     //add email portion to username so my users don't have to & convert to lowercase incase of errors
     const loginFull = { ...loginInfo }
-    loginFull.username = (loginFull.username + '@elorin.com').toLowerCase()
+    loginFull.email = (loginFull.email + '@elorin.com').toLowerCase()
     
-    axios.post('/api/login/', loginFull)
+    axios.post('/api/login', loginFull)
       .then((resp) => {
         Auth.setToken(resp.data.token)
         props.history.push('/monsters')
@@ -44,7 +44,7 @@ const Login = (props) => {
           <div className="field">
             <label className="label">Username</label>
             <div className="control">
-              <input className="input" type="text" name='username' onChange={(e) => handleChange(e)} />
+              <input className="input" type="text" name='email' onChange={(e) => handleChange(e)} />
             </div>
           </div>
 
