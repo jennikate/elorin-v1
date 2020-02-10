@@ -6,6 +6,7 @@ import Auth from '../lib/auth'
 const Login = (props) => {
 
   const [loginInfo, setLoginInfo] = useState()
+  // eslint-disable-next-line no-unused-vars
   const [err, setErrors] = useState({})
   const [visible, setVisibility] = useState(false)
 

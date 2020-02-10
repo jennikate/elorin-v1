@@ -12,7 +12,9 @@
 
 ### User access
 
-- [ ] Register/Login
+- [ ] Register
+- [x] Login
+- [ ] Logout (code exists, need to put on page)
 
 
 ### Character creation by users

@@ -1,0 +1,13 @@
+  
+[
+  {
+    "model": "jwt_auth.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "email": "admin@elorin.com",
+      "password": "310rin310",
+      "password_confirmation": "310rin310"
+    }
+  }
+]
