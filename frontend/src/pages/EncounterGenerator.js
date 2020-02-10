@@ -71,6 +71,10 @@ const encounterGenerator = () => {
   }
 
   const handleSubmit = (e) => {
+
+    if (pLevels.length !== pNum) {
+      console.log('arg')
+    }
     const arr = pLevels.map(level => level.value)
 
     e.preventDefault()
