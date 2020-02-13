@@ -8,26 +8,51 @@ import calculator from '../calculators/calcSum'
 const encounterGenerator = () => {
 
   //state stores
-  const [PartySameLevel, setPartySameLevel] = useState('No')
+  const [partySameLevel, setPartySameLevel] = useState('No')
   const [partyNumbers, setPartyNumbers] = useState(0)
+  const [playerArray, setPlayerArray] = useState([])
 
-  const handlePartyameLevelChange = (state) => {
+  const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
+    //if state = 'Yes' then the 'party level' field activates (in the html code)
 
-    //if state = 'Yes' then ask for party level
+    // //if state = 'No' then we will show a 'player level' field for every party member
+    // if (partySameLevel === 'No') {
+    //   // create an array of players (spread any existing so we can add/remove without overwriting)
+    //   const arr = [...playerArray]
 
-    //if state = 'No' then 
+    //   console.log(partyNumbers)
+
+    //   setPlayerArray(arr)
+    //   console.log(arr)
+
   }
 
   const handleAddSubtract = (e, symbol) => {
     e.preventDefault()
     //current player numbers, always adjust by 1 on click, + or - depending on button clicked
     setPartyNumbers(calculator(partyNumbers, 1, symbol))
+    console.log(partyNumbers)
+
+    //if state = 'No' then we will show a 'player level' field for every party member
+    if (partySameLevel === 'No') {
+      if (symbol === '+') {
+        const arr = [...playerArray, { player: partyNumbers, level: '' }]
+        console.log(arr)
+        setPlayerArray(arr)
+      } else {
+        const arr = [...playerArray]
+        arr.splice(-1, 1)
+        console.log(arr)
+        setPlayerArray(arr)
+      }
+    }
   }
 
 
-  console.log('PartySameLevel', PartySameLevel)
-  console.log('partyNumbers', partyNumbers)
+  // console.log('PartySameLevel', partySameLevel)
+  // console.log('partyNumbers', partyNumbers)
+  // console.log('playerArray', playerArray)
 
   return (
     <>
@@ -39,7 +64,7 @@ const encounterGenerator = () => {
         <form className='form'>
           <h2>Party</h2>
 
-          <div className='field' onChange={e => handlePartyameLevelChange(e.target.value)}>
+          <div className='field' onChange={e => handlePartyLevelChange(e.target.value)}>
             <label className='label'>Are all party members the same level?</label>
             <label className='radio-container'>Yes
               <input type='radio' name='radio' value='Yes' />
@@ -60,7 +85,25 @@ const encounterGenerator = () => {
             </div>
           </div>
 
-          {/* {/* <div className='field'>
+          {partySameLevel === 'Yes' &&
+            <div className='field'>
+              <label className='label'>Party level</label>
+              {/* <input className='counter input' type='text' id={pInput[i]} onChange={e => handleLevelChange(e)} /> */}
+              <input className='counter input' type='text' />
+            </div>}
+
+          {partySameLevel === 'No' &&
+            <div className='field'>
+              <label className='label'>Player levels</label>
+              {/* {partyNumbers.map((ele, i) => {
+                return (
+                  <p key={i}>{ele}</p>
+                )
+              })} */}
+            </div>
+          }
+
+          {/* <div className='field'>
             <label className='label'>Player level</label>
             {(pSameLevel === 'No' && pInput) &&
               pInput.map((elem, i) => {
@@ -80,7 +123,7 @@ const encounterGenerator = () => {
             }
           </div>
 
-          <button onClick={e => handleSubmit(e)}>Calculate</button> */}
+          <button onClick={e => handleSubmit(e)}>Calculate</button>  */}
         </form>
       </section>
 
