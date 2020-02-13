@@ -19,32 +19,43 @@ const encounterGenerator = () => {
     setPlayerArray([])
   }
 
-  const handleAddSubtract = (e, symbol) => {
+  const handlePartySize = (e, symbol) => {
     e.preventDefault()
     //current player numbers, always adjust by 1 on click, + or - depending on button clicked
     const res = calculator(partyNumbers, 1, symbol)
     res <= 0 ? setPartyNumbers(0) : setPartyNumbers(res)
-    
 
-    //if state = 'No' then we will show a 'player level' field for every party member
-    if (partySameLevel === 'No') {
-      if (symbol === '+') {
-        const arr = [...playerArray, { player: partyNumbers, level: '' }]
-        console.log(arr)
+    if (symbol === '+') {
+      const playerNumber = partyNumbers + 1
+      const arr = [...playerArray, { player: playerNumber, level: 0 }]
+      setPlayerArray(arr)
+    } else {
+      const arr = [...playerArray]
+      arr.splice(-1, 1)
+      setPlayerArray(arr)
+    }
+  }
+
+  const handleLevelChange = (e, id) => {
+    const level = e.target.value
+    const arr = [...playerArray]
+    if (partySameLevel === 'Yes') {
+      arr.map(players => ({ player: players.player, level: level }))
+      setPlayerArray(arr)
+    } else {
+      arr.map((players, index) => {
+        if (id === players.player) {
+          arr[index].level = level
+        }
         setPlayerArray(arr)
-      } else {
-        const arr = [...playerArray]
-        arr.splice(-1, 1)
-        console.log(arr)
-        setPlayerArray(arr)
-      }
+      })
     }
   }
 
 
   // console.log('PartySameLevel', partySameLevel)
   // console.log('partyNumbers', partyNumbers)
-  // console.log('playerArray', playerArray)
+  console.log('playerArray', playerArray)
 
   return (
     <>
@@ -71,27 +82,29 @@ const encounterGenerator = () => {
           <div className='field'>
             <label className='label'>Number of players</label>
             <div className='flex-horizontal'>
-              <button className='counter' onClick={(e) => handleAddSubtract(e, '-')}><FontAwesomeIcon icon={faMinus} /></button>
+              <button className='counter' onClick={(e) => handlePartySize(e, '-')}><FontAwesomeIcon icon={faMinus} /></button>
               <p className='counter input' type='text' name='partyCount'>{partyNumbers}</p>
-              <button className='counter' onClick={(e) => handleAddSubtract(e, '+')}><FontAwesomeIcon icon={faPlus} /></button>
+              <button className='counter' onClick={(e) => handlePartySize(e, '+')}><FontAwesomeIcon icon={faPlus} /></button>
             </div>
           </div>
 
           {partySameLevel === 'Yes' &&
             <div className='field'>
               <label className='label'>Party level</label>
-              {/* <input className='counter input' type='text' id={pInput[i]} onChange={e => handleLevelChange(e)} /> */}
-              <input className='counter input' type='text' />
+              <input className='counter input' type='text' onChange={(e) => handleLevelChange(e)} />
             </div>}
 
           {partySameLevel === 'No' &&
             <div className='field'>
               <label className='label'>Player levels</label>
-              {/* {partyNumbers.map((ele, i) => {
+              {playerArray.map((ele, i) => {
                 return (
-                  <p key={i}>{ele}</p>
+                  <div key={i} className='flex-horizontal'>
+                    <p>Player {ele.player}</p>
+                    <input className='counter input' type='text' id={ele.player} onChange={(e) => handleLevelChange(e, ele.player)} />
+                  </div>
                 )
-              })} */}
+              })}
             </div>
           }
 
@@ -150,47 +163,47 @@ const encounterGenerator = () => {
 export default encounterGenerator
 
 
-// [x] ask if players are all the same level
+    // [x] ask if players are all the same level
 
-// if all players are same level then 
-// [x] take number of players via + and -
-// display level input field
-// on calculate 
-// CALCULATOR
-// (level * numPlayers) * easy / med / diff / deadly
-// return results
+    // if all players are same level then 
+    // [x] take number of players via + and -
+    // display level input field
+    // on calculate 
+    // CALCULATOR
+    // (level * numPlayers) * easy / med / diff / deadly
+    // return results
 
-// after calculate
-// if number of players changes AND all players remain same level then
-// on calculate
-// CALCULATOR
-// update numPlaters
-// (level * numPlayers) * easy / med / diff / deadly 
-// return results
+    // after calculate
+    // if number of players changes AND all players remain same level then
+    // on calculate
+    // CALCULATOR
+    // update numPlaters
+    // (level * numPlayers) * easy / med / diff / deadly 
+    // return results
 
-// all players changes to be different levels
-// refresh numPlayers to 0
-// refresh level to 0
-// leave different level selected
+    // all players changes to be different levels
+    // refresh numPlayers to 0
+    // refresh level to 0
+    // leave different level selected
 
-// if all players are different level then
-// take number of players via + and -
-// for each +
-// add 1 to numPlayers
-// show input form for level for player[n]
-// for each - 
-// remove 1 from numPlayers
-// hide the last input
-// clear any value from the last input
-// on calculate
-// CALCULATOR
-// for each player
-// get charLevel
-// easyValue = easyXP + easyValue (repeat for med, diff, deadly)
-// return results
+    // if all players are different level then
+    // take number of players via + and -
+    // for each +
+    // add 1 to numPlayers
+    // show input form for level for player[n]
+    // for each - 
+    // remove 1 from numPlayers
+    // hide the last input
+    // clear any value from the last input
+    // on calculate
+    // CALCULATOR
+    // for each player
+    // get charLevel
+    // easyValue = easyXP + easyValue (repeat for med, diff, deadly)
+    // return results
 
 
-// TRICKY THINGS
-// one calculation is pure *, the other is find level and +
-// once a user has calculated, can they add more & recalculate - how do I handle that
+    // TRICKY THINGS
+    // one calculation is pure *, the other is find level and +
+    // once a user has calculated, can they add more & recalculate - how do I handle that
 
