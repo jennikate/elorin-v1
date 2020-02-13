@@ -2,7 +2,6 @@
 import React from 'react'
 
 const calcThreshold = (difficulty, levels) => {
-  console.log('levels', levels)
 
   // Array of XP Thresholds by Char Level (move to Db and call via API in future)
   const xpThresholdArr = [

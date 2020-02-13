@@ -13,6 +13,7 @@ const encounterGenerator = () => {
   const [partyLevel, setPartyLevel] = useState(0)
   const [partyNumbers, setPartyNumbers] = useState(0)
   const [playerArray, setPlayerArray] = useState([])
+  const [error, setError] = useState(false)
 
   //state stores for calculating thresholds (would like to extract this out to component but not working atm)
   const [easyXP, setEasyXP] = useState(0)
@@ -65,10 +66,16 @@ const encounterGenerator = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setEasyXP(calcThreshold('easy', playerArray))
-    setMediumXP(calcThreshold('medium', playerArray))
-    setHardXP(calcThreshold('hard', playerArray))
-    setDeadlyXP(calcThreshold('deadly', playerArray))
+    //prevent submission where player levels are missing
+    if (playerArray.filter(n => n.level === 0).length > 0) {
+      setError(true)
+    } else {
+      setError(false)
+      setEasyXP(calcThreshold('easy', playerArray))
+      setMediumXP(calcThreshold('medium', playerArray))
+      setHardXP(calcThreshold('hard', playerArray))
+      setDeadlyXP(calcThreshold('deadly', playerArray))
+    }
   }
 
 
@@ -106,6 +113,7 @@ const encounterGenerator = () => {
             <div className='field'>
               <label className='label'>Party level</label>
               <input className='counter input' type='text' onChange={(e) => handleLevelChange(e)} />
+              {error === true && <p className='error'>You must enter a party level between 1 and 20</p>}
             </div>}
 
           {partySameLevel === 'No' &&
@@ -119,6 +127,7 @@ const encounterGenerator = () => {
                   </div>
                 )
               })}
+              {error === true && <p className='error'>All players must have a level between 1 and 20 entered</p>}
             </div>
           }
 
