@@ -14,25 +14,17 @@ const encounterGenerator = () => {
 
   const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
-    //if state = 'Yes' then the 'party level' field activates (in the html code)
-
-    // //if state = 'No' then we will show a 'player level' field for every party member
-    // if (partySameLevel === 'No') {
-    //   // create an array of players (spread any existing so we can add/remove without overwriting)
-    //   const arr = [...playerArray]
-
-    //   console.log(partyNumbers)
-
-    //   setPlayerArray(arr)
-    //   console.log(arr)
-
+    //reset party numbers to 0 to ensure counts are correct -- probably a better UX in here, but I'll investigate that later
+    setPartyNumbers(0)
+    setPlayerArray([])
   }
 
   const handleAddSubtract = (e, symbol) => {
     e.preventDefault()
     //current player numbers, always adjust by 1 on click, + or - depending on button clicked
-    setPartyNumbers(calculator(partyNumbers, 1, symbol))
-    console.log(partyNumbers)
+    const res = calculator(partyNumbers, 1, symbol)
+    res <= 0 ? setPartyNumbers(0) : setPartyNumbers(res)
+    
 
     //if state = 'No' then we will show a 'player level' field for every party member
     if (partySameLevel === 'No') {
