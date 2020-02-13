@@ -4,13 +4,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 import calculator from '../calculators/calcSum'
+import calcThreshold from '../calculators/calcThreshold'
 
 const encounterGenerator = () => {
 
-  //state stores
+  //state stores for capturing data
   const [partySameLevel, setPartySameLevel] = useState('No')
+  const [partyLevel, setPartyLevel] = useState(0)
   const [partyNumbers, setPartyNumbers] = useState(0)
   const [playerArray, setPlayerArray] = useState([])
+
+  //state stores for calculating thresholds (would like to extract this out to component but not working atm)
+  const [easyXP, setEasyXP] = useState(0)
+  const [mediumXP, setMediumXP] = useState(0)
+  const [hardXP, setHardXP] = useState(0)
+  const [deadlyXP, setDeadlyXP] = useState(0)
 
   const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
@@ -27,7 +35,7 @@ const encounterGenerator = () => {
 
     if (symbol === '+') {
       const playerNumber = partyNumbers + 1
-      const arr = [...playerArray, { player: playerNumber, level: 0 }]
+      const arr = partySameLevel === 'Yes' ? [...playerArray, { player: playerNumber, level: partyLevel }] : [...playerArray, { player: playerNumber, level: 0 }]
       setPlayerArray(arr)
     } else {
       const arr = [...playerArray]
@@ -39,9 +47,8 @@ const encounterGenerator = () => {
   const handleLevelChange = (e, id) => {
     const level = e.target.value
     const arr = [...playerArray]
-    // console.log(arr)
-
     if (partySameLevel === 'Yes') {
+      setPartyLevel(level)
       arr.map((players, index) => {
         arr[index].level = level
       })
@@ -58,14 +65,12 @@ const encounterGenerator = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('submit clicked')
-    console.log('playerArray', playerArray)
+    setEasyXP(calcThreshold('easy', playerArray))
+    setMediumXP(calcThreshold('medium', playerArray))
+    setHardXP(calcThreshold('hard', playerArray))
+    setDeadlyXP(calcThreshold('deadly', playerArray))
   }
 
-
-  // console.log('PartySameLevel', partySameLevel)
-  // console.log('partyNumbers', partyNumbers)
-  // console.log('playerArray', playerArray)
 
   return (
     <>
@@ -121,7 +126,7 @@ const encounterGenerator = () => {
         </form>
       </section>
 
-      {/* <section>
+      <section>
         <h2>XP Thresholds</h2>
         <p>For your party size and level, the following XP Thresholds are recommended.</p>
         <div className='flex-horizontal'>
@@ -141,8 +146,8 @@ const encounterGenerator = () => {
             <p>Deadly</p>
             <p>{deadlyXP}</p>
           </div>
-        </div> 
-      </section> */}
+        </div>
+      </section>
 
 
     </>
@@ -150,49 +155,4 @@ const encounterGenerator = () => {
 }
 
 export default encounterGenerator
-
-
-    // [x] ask if players are all the same level
-
-    // if all players are same level then 
-    // [x] take number of players via + and -
-    // display level input field
-    // on calculate 
-    // CALCULATOR
-    // (level * numPlayers) * easy / med / diff / deadly
-    // return results
-
-    // after calculate
-    // if number of players changes AND all players remain same level then
-    // on calculate
-    // CALCULATOR
-    // update numPlaters
-    // (level * numPlayers) * easy / med / diff / deadly 
-    // return results
-
-    // all players changes to be different levels
-    // refresh numPlayers to 0
-    // refresh level to 0
-    // leave different level selected
-
-    // if all players are different level then
-    // take number of players via + and -
-    // for each +
-    // add 1 to numPlayers
-    // show input form for level for player[n]
-    // for each - 
-    // remove 1 from numPlayers
-    // hide the last input
-    // clear any value from the last input
-    // on calculate
-    // CALCULATOR
-    // for each player
-    // get charLevel
-    // easyValue = easyXP + easyValue (repeat for med, diff, deadly)
-    // return results
-
-
-    // TRICKY THINGS
-    // one calculation is pure *, the other is find level and +
-    // once a user has calculated, can they add more & recalculate - how do I handle that
 

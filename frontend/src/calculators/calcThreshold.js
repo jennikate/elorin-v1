@@ -2,6 +2,7 @@
 import React from 'react'
 
 const calcThreshold = (difficulty, levels) => {
+  console.log('levels', levels)
 
   // Array of XP Thresholds by Char Level (move to Db and call via API in future)
   const xpThresholdArr = [
@@ -15,7 +16,7 @@ const calcThreshold = (difficulty, levels) => {
   let diffLevel = 0
 
   levels.map((elem) => {
-    const obj = xpThresholdArr.find(xp => xp.charLevel === elem)
+    const obj = xpThresholdArr.find(xp => xp.charLevel === elem.level)
     switch (difficulty) {
       case 'easy': diffLevel = diffLevel + obj.easy; break
       case 'medium': diffLevel = diffLevel + obj.medium; break
