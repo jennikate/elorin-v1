@@ -1,89 +1,33 @@
-/* eslint-disable brace-style */
 import React, { useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
-import calcThreshold from '../calculators/calcThreshold'
-// import FormPlayerData from '../Forms/FormPlayerData'
+import calculator from '../calculators/calcSum'
 
 const encounterGenerator = () => {
 
-  const [easyXP, setEasyXP] = useState(0)
-  const [mediumXP, setMediumXP] = useState(0)
-  const [hardXP, setHardXP] = useState(0)
-  const [deadlyXP, setDeadlyXP] = useState(0)
+  //state stores
+  const [PartySameLevel, setPartySameLevel] = useState('No')
+  const [partyNumbers, setPartyNumbers] = useState(0)
 
-  const [pNum, setPNum] = useState(0)
-  const [pInput, setPInput] = useState([])  //used to create input fields to take player leve
-  const [pSameLevel, setPSameLevel] = useState('No')
-  const [pLevels, setPLevels] = useState([])
+  const handlePartyameLevelChange = (state) => {
+    setPartySameLevel(state)
 
-  const setPlayerLevelStatus = (e) => {
-    setPSameLevel(e.target.value)
-    //clear any existing player data
-    setPInput([])
-    setPLevels([])
-    setPNum(0)
+    //if state = 'Yes' then ask for party level
+
+    //if state = 'No' then 
   }
 
-  const handleAddSubtract = (e, operator) => {
+  const handleAddSubtract = (e, symbol) => {
     e.preventDefault()
-    //if user clicks add, increase the number of players (pNum) 
-    if (operator === 'add') {
-      setPNum(pNum + 1)
-      //and if they have stated that all players are not the same level, then add an input field for each players level (pInput)
-      if (pSameLevel === 'No') { setPInput([...pInput, 'Player ' + (pNum + 1)]) }
-      //if user clicks subtract
-    } else if (operator === 'subtract') {
-      //reduce the number of players
-      setPNum(pNum - 1)
-      //remove the level from level array if it exists
-      pLevels.splice(-1)[0]
-      //and if they have stated that all players are not the same level, then remove an input field, and remove the level from the levels array
-      if (pSameLevel === 'No') {
-        pInput.pop()  //remove the input field (always just drops last field)
-      }
-    }
+    //current player numbers, always adjust by 1 on click, + or - depending on button clicked
+    setPartyNumbers(calculator(partyNumbers, 1, symbol))
   }
 
-  const handleLevelChange = (e) => {
-    const newArr = []
-    if (pSameLevel === 'Yes') {
-      for (let i = 0; i < pNum; i++) {
-        // newArr.push(e.target.value) //if all players are same level is YES, then loops through number of players creating an array of levels for them
-        newArr.push(
-          {
-            name: `Player ${i}`,
-            value: e.target.value
-          }
-        )
-        setPLevels(newArr)
-      }
-    } else { //if all players are same level is NO, this takes the levels as entered and adds to array
-      setPLevels([...pLevels,
-        {
-          name: e.target.id,
-          value: e.target.value
-        }
-      ])
-    }
-  }
 
-  const handleSubmit = (e) => {
-
-    if (pLevels.length !== pNum) {
-      console.log('arg')
-    }
-    const arr = pLevels.map(level => level.value)
-
-    e.preventDefault()
-    setEasyXP(calcThreshold('easy', arr))
-    setMediumXP(calcThreshold('medium', arr))
-    setHardXP(calcThreshold('hard', arr))
-    setDeadlyXP(calcThreshold('deadly', arr))
-  }
-
+  console.log('PartySameLevel', PartySameLevel)
+  console.log('partyNumbers', partyNumbers)
 
   return (
     <>
@@ -91,12 +35,12 @@ const encounterGenerator = () => {
       <h1>Encounter Generator</h1>
 
       <section className=''>
-        {/* <FormPlayerData /> */}
+        {/* <FormpartyData /> */}
         <form className='form'>
-          <h2>Players</h2>
+          <h2>Party</h2>
 
-          <div className='field' onChange={e => setPlayerLevelStatus(e)}>
-            <label className='label'>Are all players the same level?</label>
+          <div className='field' onChange={e => handlePartyameLevelChange(e.target.value)}>
+            <label className='label'>Are all party members the same level?</label>
             <label className='radio-container'>Yes
               <input type='radio' name='radio' value='Yes' />
               <span className='checkmark'></span>
@@ -110,13 +54,13 @@ const encounterGenerator = () => {
           <div className='field'>
             <label className='label'>Number of players</label>
             <div className='flex-horizontal'>
-              <button className='counter' onClick={(e) => handleAddSubtract(e, 'subtract')}><FontAwesomeIcon icon={faMinus} /></button>
-              <p className='counter input' type='text' name='playerCount'>{pNum}</p>
-              <button className='counter' onClick={(e) => handleAddSubtract(e, 'add')}><FontAwesomeIcon icon={faPlus} /></button>
+              <button className='counter' onClick={(e) => handleAddSubtract(e, '-')}><FontAwesomeIcon icon={faMinus} /></button>
+              <p className='counter input' type='text' name='partyCount'>{partyNumbers}</p>
+              <button className='counter' onClick={(e) => handleAddSubtract(e, '+')}><FontAwesomeIcon icon={faPlus} /></button>
             </div>
           </div>
 
-          <div className='field'>
+          {/* {/* <div className='field'>
             <label className='label'>Player level</label>
             {(pSameLevel === 'No' && pInput) &&
               pInput.map((elem, i) => {
@@ -136,11 +80,11 @@ const encounterGenerator = () => {
             }
           </div>
 
-          <button onClick={e => handleSubmit(e)}>Calculate</button>
+          <button onClick={e => handleSubmit(e)}>Calculate</button> */}
         </form>
       </section>
 
-      <section>
+      {/* <section>
         <h2>XP Thresholds</h2>
         <p>For your party size and level, the following XP Thresholds are recommended.</p>
         <div className='flex-horizontal'>
@@ -160,8 +104,8 @@ const encounterGenerator = () => {
             <p>Deadly</p>
             <p>{deadlyXP}</p>
           </div>
-        </div>
-      </section>
+        </div> 
+      </section> */}
 
 
     </>
@@ -170,6 +114,48 @@ const encounterGenerator = () => {
 
 export default encounterGenerator
 
-{/* <p>Mode: Medium (note, will get this from the form)</p>
-      <p>XP Threshold for monster selection : {formResult}</p>
-      <p>You can consider monsters up to CR level : {crMax}</p> */}
+
+// [x] ask if players are all the same level
+
+// if all players are same level then 
+// [x] take number of players via + and -
+// display level input field
+// on calculate 
+// CALCULATOR
+// (level * numPlayers) * easy / med / diff / deadly
+// return results
+
+// after calculate
+// if number of players changes AND all players remain same level then
+// on calculate
+// CALCULATOR
+// update numPlaters
+// (level * numPlayers) * easy / med / diff / deadly 
+// return results
+
+// all players changes to be different levels
+// refresh numPlayers to 0
+// refresh level to 0
+// leave different level selected
+
+// if all players are different level then
+// take number of players via + and -
+// for each +
+// add 1 to numPlayers
+// show input form for level for player[n]
+// for each - 
+// remove 1 from numPlayers
+// hide the last input
+// clear any value from the last input
+// on calculate
+// CALCULATOR
+// for each player
+// get charLevel
+// easyValue = easyXP + easyValue (repeat for med, diff, deadly)
+// return results
+
+
+// TRICKY THINGS
+// one calculation is pure *, the other is find level and +
+// once a user has calculated, can they add more & recalculate - how do I handle that
+
