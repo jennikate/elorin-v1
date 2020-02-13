@@ -39,8 +39,12 @@ const encounterGenerator = () => {
   const handleLevelChange = (e, id) => {
     const level = e.target.value
     const arr = [...playerArray]
+    // console.log(arr)
+
     if (partySameLevel === 'Yes') {
-      arr.map(players => ({ player: players.player, level: level }))
+      arr.map((players, index) => {
+        arr[index].level = level
+      })
       setPlayerArray(arr)
     } else {
       arr.map((players, index) => {
@@ -52,10 +56,16 @@ const encounterGenerator = () => {
     }
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('submit clicked')
+    console.log('playerArray', playerArray)
+  }
+
 
   // console.log('PartySameLevel', partySameLevel)
   // console.log('partyNumbers', partyNumbers)
-  console.log('playerArray', playerArray)
+  // console.log('playerArray', playerArray)
 
   return (
     <>
@@ -63,7 +73,6 @@ const encounterGenerator = () => {
       <h1>Encounter Generator</h1>
 
       <section className=''>
-        {/* <FormpartyData /> */}
         <form className='form'>
           <h2>Party</h2>
 
@@ -108,27 +117,7 @@ const encounterGenerator = () => {
             </div>
           }
 
-          {/* <div className='field'>
-            <label className='label'>Player level</label>
-            {(pSameLevel === 'No' && pInput) &&
-              pInput.map((elem, i) => {
-                return (
-                  <div key={i} className='flex-horizontal'>
-                    <p>Player level:{pInput[i]}</p>
-                    <input className='counter input' type='text' id={pInput[i]} onChange={e => handleLevelChange(e)} />
-                  </div>
-                )
-              })
-            }
-            {(pSameLevel === 'Yes') &&
-              <div className='flex-horizontal'>
-                <p>Players level:</p>
-                <input className='counter input' type='text' onChange={e => handleLevelChange(e)} />
-              </div>
-            }
-          </div>
-
-          <button onClick={e => handleSubmit(e)}>Calculate</button>  */}
+          <button onClick={e => handleSubmit(e)}>Calculate</button>
         </form>
       </section>
 
