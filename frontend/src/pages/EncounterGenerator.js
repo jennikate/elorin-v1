@@ -25,6 +25,7 @@ const encounterGenerator = () => {
   //state store for monster data
   const [challengeRating, setChallengeRating] = useState()
   const [monsterOptions, setMonsterOptions] = useState([])
+  const [monsterListDone, setMonsterListDone] = useState(false)
 
   const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
@@ -94,11 +95,11 @@ const encounterGenerator = () => {
     return xpIndex
   }
 
-  const getMonsterOptions = (e, xp, page) => {
+  const getMonsterOptions = (e, xp, page, arr) => {
     // e.preventDefault()
     const xpIndex = getMaxCR(xp)
     page = !page ? 1 : page
-    const arr = []
+    arr = !arr ? arr = [] : arr
 
     fetch(`https://api.open5e.com/monsters/?challenge_rating=${xpIndex}&page=${page}`)
       .then(resp => resp.json())
@@ -106,11 +107,13 @@ const encounterGenerator = () => {
         resp.results.forEach(ele => {
           arr.push(ele)
         })
+        setMonsterOptions(arr)
         if (resp.next !== null) {
           page = page + 1
-          getMonsterOptions(e, xp, page)
+          getMonsterOptions(e, xp, page, arr)
+        } else {
+          setMonsterListDone(true)
         }
-        setMonsterOptions(arr)
       })
       .catch(err => console.log(err))
   }
@@ -127,6 +130,12 @@ const encounterGenerator = () => {
 
   useEffect(() => {
     getChallengeRatingData()
+  }, [])
+
+  useEffect(() => {
+    if (monsterListDone === true) {
+      setMonsterListDone(false)
+    }
   }, [])
 
   // console.log(challengeRating)
