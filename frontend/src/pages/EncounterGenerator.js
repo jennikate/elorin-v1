@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 import calculator from '../calculators/calcSum'
 import calcThreshold from '../calculators/calcThreshold'
-import getMonsters from '../hooks/getMonsters'
 
 const encounterGenerator = () => {
 
@@ -23,7 +22,8 @@ const encounterGenerator = () => {
   const [deadlyXP, setDeadlyXP] = useState(0)
 
   //state store for monster data
-  const [monsterOptions, setMonsterOptions] = useState([])
+  const [challengeRating, setChallengeRating] = useState()
+  // const [monsterOptions, setMonsterOptions] = useState([])
 
   const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
@@ -82,11 +82,40 @@ const encounterGenerator = () => {
     }
   }
 
+  //===== MONSTER OPTIONS
+
   const getMonsterOptions = (e, xp) => {
     e.preventDefault()
-    setMonsterOptions(getMonsters(xp))
+    const xpValue = parseInt(Object.values(xp))
+    const xpValues = challengeRating.map(a => a.xp)
+
+    const filtered = xpValues.filter(val => val <= xpValue)
+    const closest = filtered[filtered.length - 1]
+    const xpIndex = challengeRating.findIndex(i => i.xp === closest)
+
+   
+
+
+    console.log('close', closest)
+    console.log('i', xpIndex)
+    console.log(challengeRating[xpIndex])
   }
 
+
+  //===== WHEN COMPONENT DID MOUNT
+
+  const getChallengeRatingData = () => {
+    fetch('/api/challenge/')
+      .then(resp => resp.json())
+      .then(resp => setChallengeRating(resp))
+      .catch(err => console.log(err))
+  }
+
+  useEffect(() => {
+    getChallengeRatingData()
+  }, [])
+
+  // console.log(challengeRating)
 
   return (
     <>
@@ -156,17 +185,17 @@ const encounterGenerator = () => {
           <div className='block'>
             <p>Medium</p>
             <p>{mediumXP}</p>
-            <button onClick={e => getMonsterOptions(e, { mediumXP })}>monster options</button>
+            {/* <button onClick={e => getMonsterOptions(e, { mediumXP })}>monster options</button> */}
           </div>
           <div className='block'>
             <p>Hard</p>
             <p>{hardXP}</p>
-            <button onClick={e => getMonsterOptions(e, { hardXP })}>monster options</button>
+            {/* <button onClick={e => getMonsterOptions(e, { hardXP })}>monster options</button> */}
           </div>
           <div className='block'>
             <p>Deadly</p>
             <p>{deadlyXP}</p>
-            <button onClick={e => getMonsterOptions(e, { deadlyXP })}>monster options</button>
+            {/* <button onClick={e => getMonsterOptions(e, { deadlyXP })}>monster options</button> */}
           </div>
         </div>
       </section>

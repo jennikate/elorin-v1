@@ -10,6 +10,7 @@
 - [ ] return suggested monsters based on CR
 - [ ] setup threshold check table in DB rather than as array
 - [ ] BUG: low prio. Few cases where xp calculator fails due to bad information in level input fields hard to reproduce.
+- [ ] Refactor components out of encounter generator using Redux
 
 #### Calendar
 - [ ] Calendar

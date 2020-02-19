@@ -8,7 +8,7 @@ function useFetch(url, initialState = []) {
       .then(resp => resp.json())
       .then(resp => setData(resp)) 
       .catch(err => console.log(err))
-    return () => console.log('Route changed')
+    return () => console.log('Data fetched')
   }, [])
   return data
 }
