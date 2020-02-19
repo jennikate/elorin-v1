@@ -4,28 +4,16 @@ import useFetch from './useFetch'
 
 function MonsterList(xpThreshold) {
 
-  
+  const xpValue = parseInt(Object.values(xpThreshold))
 
-  console.log(xpThreshold)
+  //get max challenge rating from my databse
+
+  console.log(xpValue)
 
   // const data = useFetch('https://api.open5e.com/monsters/?challenge_rating=3')
   // const results = data.results
   
-  // if ( data.length === 0 ) { 
-  //   return <h1>Loading</h1> 
-  // }
-  // return (
-  //   <div>
-  //     <h1>Monster List</h1>
-  //     {results.map((monster, i) => {
-  //       return (
-  //         <p key={i}>  
-  //           <Link to={`/monsters/${monster.slug}`}>{monster.name}</Link>
-  //         </p>
-  //       )
-  //     })}
-  //   </div>
-  // )
+  //return results to EncounterGenerator
 }
 
 export default MonsterList
