@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from .models import Language, Species, Subspecies
-from .serializers import LanguageSerializer, SpeciesSerializer, SubspeciesSerializer
+from .serializers import LanguageSerializer, SpeciesSerializer, SubspeciesSerializer, ChallengeRatingXPSerializer
 from django.conf import settings
 from django.http import HttpResponse
 
@@ -37,3 +37,13 @@ class LanguageListView(APIView):
         language = Language.objects.get(pk=pk)
         language.delete()
         return Response(status=HTTP_204_NO_CONTENT)
+
+
+class ChallengeRatingPost(APIView):
+
+    def post(self, request):
+        challenge = ChallengeRatingXPSerializer(data=request.data)
+        if challenge.is_valid():
+            challenge.save()
+            return Response(challenge.data, status=HTTP_201_CREATED)
+        return Response(challenge.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)

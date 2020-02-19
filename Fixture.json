@@ -1,12 +1,274 @@
-  
-[
-  {
-    "model": "jwt_auth.user",
-    "pk": 1,
-    "fields": {
-      "username": "admin",
-      "email": "admin@elorin.com",
-      "password": "310rin310"
+  [
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 99,
+      "fields": {
+        "challenge": "0",
+        "xp": 10
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 1,
+      "fields": {
+        "challenge": "0.125",
+        "xp": 25
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 2,
+      "fields": {
+        "challenge": "0.25",
+        "xp": 50
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 3,
+      "fields": {
+        "challenge": "0.5",
+        "xp": 100
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 4,
+      "fields": {
+        "challenge": "1",
+        "xp": 200
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 5,
+      "fields": {
+        "challenge": "2",
+        "xp": 450
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 5,
+      "fields": {
+        "challenge": "3",
+        "xp": 700
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 7,
+      "fields": {
+        "challenge": "4",
+        "xp": 1100
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 8,
+      "fields": {
+        "challenge": "5",
+        "xp": 1800
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 9,
+      "fields": {
+        "challenge": "6",
+        "xp": 2300
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 10,
+      "fields": {
+        "challenge": "7",
+        "xp": 2900
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 11,
+      "fields": {
+        "challenge": "8",
+        "xp": 3900
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 12,
+      "fields": {
+        "challenge": "9",
+        "xp": 5000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 13,
+      "fields": {
+        "challenge": "10",
+        "xp": 5900
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 14,
+      "fields": {
+        "challenge": "11",
+        "xp": 7200
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 15,
+      "fields": {
+        "challenge": "12",
+        "xp": 8400
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 16,
+      "fields": {
+        "challenge": "13",
+        "xp": 10000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 17,
+      "fields": {
+        "challenge": "14",
+        "xp": 11500
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 18,
+      "fields": {
+        "challenge": "15",
+        "xp": 13000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 19,
+      "fields": {
+        "challenge": "16",
+        "xp": 15000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 20,
+      "fields": {
+        "challenge": "17",
+        "xp": 18000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 21,
+      "fields": {
+        "challenge": "18",
+        "xp": 20000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 22,
+      "fields": {
+        "challenge": "19",
+        "xp": 22000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 23,
+      "fields": {
+        "challenge": "20",
+        "xp": 25000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 24,
+      "fields": {
+        "challenge": "21",
+        "xp": 33000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 25,
+      "fields": {
+        "challenge": "22",
+        "xp": 41000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 26,
+      "fields": {
+        "challenge": "23",
+        "xp": 50000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 27,
+      "fields": {
+        "challenge": "24",
+        "xp": 62000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 28,
+      "fields": {
+        "challenge": "25",
+        "xp": 75000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 29,
+      "fields": {
+        "challenge": "26",
+        "xp": 90000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 30,
+      "fields": {
+        "challenge": "27",
+        "xp": 150000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 31,
+      "fields": {
+        "challenge": "28",
+        "xp": 120000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 32,
+      "fields": {
+        "challenge": "29",
+        "xp": 135000
+      }
+    },
+    {
+      "model": "elorin.ChallengeRatingXP",
+      "pk": 33,
+      "fields": {
+        "challenge": "30",
+        "xp": 155000
+      }
     }
-  }
-]
+  ]
