@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from .models import Language, Species, Subspecies
+from .models import Language, Species, Subspecies, ChallengeRatingXP
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
@@ -23,3 +23,8 @@ class SubspeciesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subspecies
         fields = ('id', 'species', 'name', 'primary_language')
+
+class ChallengeRatingXPSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ChallengeRatingXP
+        fields = ('id', 'challenge', 'xp')

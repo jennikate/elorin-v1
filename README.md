@@ -5,8 +5,8 @@
 ### For DM
 
 #### Random encounter generator (Open5e API)
-- [ ] take party data
-- [ ] calculate xp thresholds
+- [x] take party data
+- [x] calculate xp thresholds
 - [ ] return suggested monsters based on CR
 - [ ] setup threshold check table in DB rather than as array
 - [ ] BUG: low prio. Few cases where xp calculator fails due to bad information in level input fields, hard to reproduce.

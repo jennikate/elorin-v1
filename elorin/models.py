@@ -26,3 +26,12 @@ class Subspecies(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+
+# ----- D&D CALCULATOR DATA :: static data, no user input
+class ChallengeRatingXP(models.Model):
+    challenge = models.CharField(max_length=3)
+    xp = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.challenge}'
