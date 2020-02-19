@@ -2,16 +2,11 @@ import React from 'react'
 import useFetch from './useFetch'
 
 
-function MonsterList(maxCR) {
+function MonsterList(xpThreshold) {
 
-  const challengeRatingArr = []
+  
 
-  while ( maxCR !== 0 ) {
-    challengeRatingArr.push(maxCR)
-    maxCR = maxCR - 1
-  }
-
-  console.log(challengeRatingArr)
+  console.log(xpThreshold)
 
   // const data = useFetch('https://api.open5e.com/monsters/?challenge_rating=3')
   // const results = data.results

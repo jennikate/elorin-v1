@@ -60,6 +60,15 @@ section {
   margin: 0 0.5rem;
   text-align: center;
 }
+.flex-horizontal.blocks {
+  max-width: 50%;
+  justify-content: space-between;
+}
+
+//removing bulma margin bottom for flexed content
+.box:not(:last-child), .content:not(:last-child), .notification:not(:last-child), .progress:not(:last-child), .table:not(:last-child), .table-container:not(:last-child), .title:not(:last-child), .subtitle:not(:last-child), .block:not(:last-child), .highlight:not(:last-child), .breadcrumb:not(:last-child), .level:not(:last-child), .list:not(:last-child), .message:not(:last-child), .pagination:not(:last-child), .tabs:not(:last-child) {
+  margin-bottom: 0;
+}
 
 /* ================================== */
 /*  TEXT                              */
@@ -90,6 +99,7 @@ h2 {
   display: inline-block; /* needed so that anything in a span is still recognised for title */
   margin-right: 5px; /* needed to re-add a 'space' as inline-block removes it */
 }
+
 
 
 /* ================================== */
@@ -145,6 +155,35 @@ h2 {
   display: inline-block;
 }
 
+
+/* ================================== */
+/*  BLOCKS                            */
+/* ================================== */
+
+.block {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-align: center;
+  padding: 0 1rem
+}
+.block {
+  border-right: 1px solid $dnd-secondary;
+  border-left: 1px solid $dnd-secondary;
+}
+.block p {
+  font-size: 1.25rem;
+}
+.block p:first-of-type {
+  font-weight: bold;
+}
+.block p:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.block button {
+  font-size: 1rem;
+  height: auto;
+}
 
 
 /* ================================== */

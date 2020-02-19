@@ -5,6 +5,7 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
 import calculator from '../calculators/calcSum'
 import calcThreshold from '../calculators/calcThreshold'
+import getMonsters from '../hooks/getMonsters'
 
 const encounterGenerator = () => {
 
@@ -20,6 +21,9 @@ const encounterGenerator = () => {
   const [mediumXP, setMediumXP] = useState(0)
   const [hardXP, setHardXP] = useState(0)
   const [deadlyXP, setDeadlyXP] = useState(0)
+
+  //state store for monster data
+  const [monsterOptions, setMonsterOptions] = useState([])
 
   const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
@@ -76,6 +80,11 @@ const encounterGenerator = () => {
       setHardXP(calcThreshold('hard', playerArray))
       setDeadlyXP(calcThreshold('deadly', playerArray))
     }
+  }
+
+  const getMonsterOptions = (e, xp) => {
+    e.preventDefault()
+    setMonsterOptions(getMonsters(xp))
   }
 
 
@@ -138,22 +147,26 @@ const encounterGenerator = () => {
       <section>
         <h2>XP Thresholds</h2>
         <p>For your party size and level, the following XP Thresholds are recommended.</p>
-        <div className='flex-horizontal'>
-          <div className='card'>
+        <div className='blocks flex-horizontal'>
+          <div className='block'>
             <p>Easy</p>
             <p>{easyXP}</p>
+            <button onClick={e => getMonsterOptions(e, { easyXP })}>monster options</button>
           </div>
-          <div className='card'>
+          <div className='block'>
             <p>Medium</p>
             <p>{mediumXP}</p>
+            <button onClick={e => getMonsterOptions(e, { mediumXP })}>monster options</button>
           </div>
-          <div className='card'>
+          <div className='block'>
             <p>Hard</p>
             <p>{hardXP}</p>
+            <button onClick={e => getMonsterOptions(e, { hardXP })}>monster options</button>
           </div>
-          <div className='card'>
+          <div className='block'>
             <p>Deadly</p>
             <p>{deadlyXP}</p>
+            <button onClick={e => getMonsterOptions(e, { deadlyXP })}>monster options</button>
           </div>
         </div>
       </section>
