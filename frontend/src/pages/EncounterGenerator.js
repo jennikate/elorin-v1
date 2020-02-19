@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
@@ -93,25 +94,25 @@ const encounterGenerator = () => {
     return xpIndex
   }
 
-  const getMonsterOptions = (e, xp) => {
+  const getMonsterOptions = (e, xp, page) => {
     // e.preventDefault()
     const xpIndex = getMaxCR(xp)
+    page = !page ? 1 : page
+    const arr = []
 
-    fetch(`https://api.open5e.com/monsters/?challenge_rating=${xpIndex}`)
+    fetch(`https://api.open5e.com/monsters/?challenge_rating=${xpIndex}&page=${page}`)
       .then(resp => resp.json())
       .then(resp => {
-        console.log(resp.next)
-        // setMonsterOptions(resp.results)
-        const arr = [...monsterOptions]
         resp.results.forEach(ele => {
           arr.push(ele)
         })
+        if (resp.next !== null) {
+          page = page + 1
+          getMonsterOptions(e, xp, page)
+        }
         setMonsterOptions(arr)
       })
       .catch(err => console.log(err))
-
-
-
   }
   console.log(monsterOptions)
 
@@ -211,6 +212,17 @@ const encounterGenerator = () => {
             {/* <button onClick={e => getMonsterOptions(e, { deadlyXP })}>monster options</button> */}
           </div>
         </div>
+      </section>
+
+      <section>
+        <h2>Monsters</h2>
+        {monsterOptions.map((monster, i) => {
+          return (
+            <p key={i}>
+              <Link to={`/monsters/${monster.slug}`}>{monster.name}</Link>
+            </p>
+          )
+        })}
       </section>
 
 
