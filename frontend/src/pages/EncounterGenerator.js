@@ -92,32 +92,44 @@ const encounterGenerator = () => {
     const filtered = xpValues.filter(val => val <= xpValue)
     const closest = filtered[filtered.length - 1]
     const xpIndex = challengeRating.findIndex(i => i.xp === closest)
-    return xpIndex
+    const crArr = []
+    for (let i = 1; i < xpIndex; i++) {
+      crArr.push(i)
+    }
+    return crArr
   }
 
   const getMonsterOptions = (e, xp, page, arr) => {
+
     // e.preventDefault()
-    const xpIndex = getMaxCR(xp)
+    const crArr = getMaxCR(xp)
     page = !page ? 1 : page
     arr = !arr ? arr = [] : arr
 
-    fetch(`https://api.open5e.com/monsters/?challenge_rating=${xpIndex}&page=${page}`)
-      .then(resp => resp.json())
-      .then(resp => {
-        resp.results.forEach(ele => {
-          arr.push(ele)
+    crArr.map((ele, i) => {
+      console.log(ele)
+      console.log(`https://api.open5e.com/monsters/?challenge_rating=${ele}&page=${page}`)
+      fetch(`https://api.open5e.com/monsters/?challenge_rating=${ele}&page=${page}`)
+        .then(resp => resp.json())
+        .then(resp => {
+          resp.results.forEach(res => {
+            arr.push(res)
+          })
+          setMonsterOptions(arr)
+          if (resp.next !== null) {
+            page = page + 1
+            getMonsterOptions(e, xp, page, arr)
+          } else {
+            setMonsterListDone(true)
+          }
         })
-        setMonsterOptions(arr)
-        if (resp.next !== null) {
-          page = page + 1
-          getMonsterOptions(e, xp, page, arr)
-        } else {
-          setMonsterListDone(true)
-        }
-      })
-      .catch(err => console.log(err))
+        .catch(err => console.log(err))
+    })
   }
-  console.log(monsterOptions)
+
+  //NEED TO REVIEW ORDER OF PAGES VS CR HERE AS IT IS DOING ALL PAGE 1, THEN ALL PAGE 2 etc.
+
+  // console.log(monsterOptions)
 
   //===== WHEN COMPONENT DID MOUNT
 
@@ -228,7 +240,7 @@ const encounterGenerator = () => {
         {monsterOptions.map((monster, i) => {
           return (
             <p key={i}>
-              <Link to={`/monsters/${monster.slug}`}>{monster.name}</Link>
+              {monster.challenge_rating}<Link to={`/monsters/${monster.slug}`}>{monster.name}</Link>
             </p>
           )
         })}
