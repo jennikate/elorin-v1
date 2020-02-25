@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
@@ -25,6 +26,8 @@ const encounterGenerator = () => {
   //state store for monster data
   const [challengeRating, setChallengeRating] = useState()
   const [monsterOptions, setMonsterOptions] = useState([])
+  const [monstersUpdated, setMonstersUpdated] = useState(false)
+  const [monsterMap, setMonsterMap] = useState()
 
   const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
@@ -98,41 +101,36 @@ const encounterGenerator = () => {
     return crArr
   }
 
-
-  const fetchMonsters = (page, arr, cr) => {
-
-    const challengeRating = cr
-
-    fetch(`https://api.open5e.com/monsters/?challenge_rating=${challengeRating}&page=${page}`)
-      .then(resp => resp.json())
-      .then(resp => {
-        resp.results.forEach(res => {
-          arr.push(res)
-        })
-        setMonsterOptions(arr)
-        if (resp.next !== null) {
-          page = page + 1
-          console.log('NEXT: fetching page ', page, ' for cr ', cr)
-          fetchMonsters(page, arr, challengeRating)
-        } else {
-          console.log('done')
-        }
-      })
-      .catch(err => console.log(err))
-
-  }
-
-
   const getMonsterOptions = (e, xp) => {
     const crArr = getMaxCR(xp)
-    // fetchMonsters(1, monsterOptions, 1)
+    const newArr = []
+
     crArr.map(ele => {
-      fetchMonsters(1, monsterOptions, ele)
+      let pages = 0
+      let page = 1
+
+      //get pages
+      axios.get(`https://api.open5e.com/monsters/?challenge_rating=${ele}&page=${page}`)
+        .then(resp => {
+          pages = Math.ceil(resp.data.count / 50)
+          //get results
+          while (page <= pages) {
+            axios.get(`https://api.open5e.com/monsters/?challenge_rating=${ele}&page=${page}`)
+              .then(resp => {
+                resp.data.results.map(ele => {
+                  newArr.push(ele)
+                })
+              })
+            page = page + 1
+          }
+        })
+      setMonsterOptions(newArr)
     })
+
   }
 
 
-  //===== WHEN COMPONENT DID MOUNT
+  //===== WHEN COMPONENT DID MOUNT/UPDATE
 
   const getChallengeRatingData = () => {
     fetch('/api/challenge/')
@@ -145,7 +143,13 @@ const encounterGenerator = () => {
     getChallengeRatingData()
   }, [])
 
-  console.log(monsterOptions)
+  // useEffect(() => {
+  //   setMonsterMap(monsterOptions)
+  //   console.log('mapped')
+  //   setMonstersUpdated(false)
+  // },[monsterOptions])
+
+  console.log('map', monsterOptions)
 
   return (
     <>
@@ -230,12 +234,16 @@ const encounterGenerator = () => {
         </div>
       </section>
 
+
       <section>
         <h2>Monsters</h2>
         {monsterOptions.map((monster, i) => {
+          console.log('htmling')
           return (
             <p key={i}>
-              {monster.challenge_rating}<Link to={`/monsters/${monster.slug}`}>{monster.name}</Link>
+              AARGH
+              {i}
+              {/* {monster.challenge_rating}<Link to={`/monsters/${monster.slug}`}>{monster.name}</Link> */}
             </p>
           )
         })}
