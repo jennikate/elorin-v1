@@ -25,7 +25,6 @@ const encounterGenerator = () => {
   //state store for monster data
   const [challengeRating, setChallengeRating] = useState()
   const [monsterOptions, setMonsterOptions] = useState([])
-  const [monsterListDone, setMonsterListDone] = useState(false)
 
   const handlePartyLevelChange = (state) => {
     setPartySameLevel(state)
@@ -99,37 +98,39 @@ const encounterGenerator = () => {
     return crArr
   }
 
-  const getMonsterOptions = (e, xp, page, arr) => {
 
-    // e.preventDefault()
-    const crArr = getMaxCR(xp)
-    page = !page ? 1 : page
-    arr = !arr ? arr = [] : arr
+  const fetchMonsters = (page, arr, cr) => {
 
-    crArr.map((ele, i) => {
-      console.log(ele)
-      console.log(`https://api.open5e.com/monsters/?challenge_rating=${ele}&page=${page}`)
-      fetch(`https://api.open5e.com/monsters/?challenge_rating=${ele}&page=${page}`)
-        .then(resp => resp.json())
-        .then(resp => {
-          resp.results.forEach(res => {
-            arr.push(res)
-          })
-          setMonsterOptions(arr)
-          if (resp.next !== null) {
-            page = page + 1
-            getMonsterOptions(e, xp, page, arr)
-          } else {
-            setMonsterListDone(true)
-          }
+    const challengeRating = cr
+
+    fetch(`https://api.open5e.com/monsters/?challenge_rating=${challengeRating}&page=${page}`)
+      .then(resp => resp.json())
+      .then(resp => {
+        resp.results.forEach(res => {
+          arr.push(res)
         })
-        .catch(err => console.log(err))
+        setMonsterOptions(arr)
+        if (resp.next !== null) {
+          page = page + 1
+          console.log('NEXT: fetching page ', page, ' for cr ', cr)
+          fetchMonsters(page, arr, challengeRating)
+        } else {
+          console.log('done')
+        }
+      })
+      .catch(err => console.log(err))
+
+  }
+
+
+  const getMonsterOptions = (e, xp) => {
+    const crArr = getMaxCR(xp)
+    // fetchMonsters(1, monsterOptions, 1)
+    crArr.map(ele => {
+      fetchMonsters(1, monsterOptions, ele)
     })
   }
 
-  //NEED TO REVIEW ORDER OF PAGES VS CR HERE AS IT IS DOING ALL PAGE 1, THEN ALL PAGE 2 etc.
-
-  // console.log(monsterOptions)
 
   //===== WHEN COMPONENT DID MOUNT
 
@@ -144,13 +145,7 @@ const encounterGenerator = () => {
     getChallengeRatingData()
   }, [])
 
-  useEffect(() => {
-    if (monsterListDone === true) {
-      setMonsterListDone(false)
-    }
-  }, [])
-
-  // console.log(challengeRating)
+  console.log(monsterOptions)
 
   return (
     <>
