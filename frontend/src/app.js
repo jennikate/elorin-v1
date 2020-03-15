@@ -12,6 +12,7 @@ import Register from './pages/Register'
 import MonsterList from './pages/MonsterList'
 import SingleMonster from './pages/SingleMonster'
 import EncounterGenerator from './pages/EncounterGenerator'
+import Calendar from './components/calendar/Calendar'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route exact path='/monsters' component={MonsterList} />
           <Route exact path='/monsters/:slug' component={SingleMonster} />
           <Route exact path='/encounter/generator' component={EncounterGenerator} />
+          <Route exact path='/calendar' component={Calendar} />
 
         </Switch>
       </HashRouter>
