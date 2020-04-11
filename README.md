@@ -12,8 +12,6 @@
 - [ ] BUG: low prio. Few cases where xp calculator fails due to bad information in level input fields hard to reproduce.
 - [ ] Refactor components out of encounter generator using Redux
 
-#### Calendar
-- [ ] Calendar
 
 ### User access
 
