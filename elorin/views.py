@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.http import HttpResponse
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -5,8 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import HTTP_201_CREATED, HTTP_422_UNPROCESSABLE_ENTITY, HTTP_204_NO_CONTENT, HTTP_401_UNAUTHORIZED
 from .models import Language, Species, Subspecies, ChallengeRatingXP, Country
 from .serializers import LanguageSerializer, SpeciesSerializer, SubspeciesSerializer, ChallengeRatingXPSerializer, CountrySerializer
-from django.conf import settings
-from django.http import HttpResponse
+
 
 class CountryView(APIView):
 
@@ -17,25 +18,25 @@ class CountryView(APIView):
         serializer = CountrySerializer(country, many=True)
         return Response(serializer.data)
 
-    # def post(self, request):
-    #     country = CountrySerializer(data=request.data)
-    #     if country.is_valid():
-    #         country.save()
-    #         return Response(country.data, status=HTTP_201_CREATED)
-    #     return Response(country.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+    def post(self, request):
+        country = CountrySerializer(data=request.data)
+        if country.is_valid():
+            country.save()
+            return Response(country.data, status=HTTP_201_CREATED)
+        return Response(country.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
-    # def put(self, request, pk):
-    #     country = Country.objects.get(pk=pk)
-    #     updated_country = CountrySerializer(country, data=request.data)
-    #     if updated_country.is_valid():
-    #         updated_country.save()
-    #         return Response(updated_country.data)
-    #     return Response(updated_country.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
+    def put(self, request, pk):
+        country = Country.objects.get(pk=pk)
+        updated_country = CountrySerializer(country, data=request.data)
+        if updated_country.is_valid():
+            updated_country.save()
+            return Response(updated_country.data)
+        return Response(updated_country.errors, status=HTTP_422_UNPROCESSABLE_ENTITY)
 
-    # def delete(self, _request, pk):
-    #     country = Country.objects.get(pk=pk)
-    #     country.delete()
-    #     return Response(status=HTTP_204_NO_CONTENT)
+    def delete(self, _request, pk):
+        country = Country.objects.get(pk=pk)
+        country.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
 
 
 class LanguageListView(APIView):
