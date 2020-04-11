@@ -10,6 +10,9 @@
     "serve:frontend": "webpack-dev-server",
     "serve:backend": "python manage.py runserver 4000"
   },
+  "engines": {
+    "node": "12.12.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
